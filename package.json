@@ -1,0 +1,25 @@
+{
+  "name": "elm-role-playing-game",
+  "version": "0.0.1",
+  "description": "An example of Elm application.",
+  "main": "api.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://rodrigo-morais@github.com/rodrigo-morais/elm-role-playing-game.git"
+  },
+  "keywords": [
+    "Elm"
+  ],
+  "author": "Rodrigo Morais <morais.rm@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rodrigo-morais/elm-role-playing-game/issues"
+  },
+  "homepage": "https://github.com/rodrigo-morais/elm-role-playing-game#readme",
+  "dependencies": {
+    "json-server": "^0.8.9"
+  }
+}
