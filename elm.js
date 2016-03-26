@@ -10387,31 +10387,101 @@ Elm.StartApp.make = function (_elm) {
    var Config = F4(function (a,b,c,d) {    return {init: a,update: b,view: c,inputs: d};});
    return _elm.StartApp.values = {_op: _op,start: start,Config: Config,App: App};
 };
+Elm.Actions = Elm.Actions || {};
+Elm.Actions.make = function (_elm) {
+   "use strict";
+   _elm.Actions = _elm.Actions || {};
+   if (_elm.Actions.values) return _elm.Actions.values;
+   var _U = Elm.Native.Utils.make(_elm),
+   $Basics = Elm.Basics.make(_elm),
+   $Debug = Elm.Debug.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
+   var _op = {};
+   var NoOp = {ctor: "NoOp"};
+   return _elm.Actions.values = {_op: _op,NoOp: NoOp};
+};
+Elm.Models = Elm.Models || {};
+Elm.Models.make = function (_elm) {
+   "use strict";
+   _elm.Models = _elm.Models || {};
+   if (_elm.Models.values) return _elm.Models.values;
+   var _U = Elm.Native.Utils.make(_elm),
+   $Basics = Elm.Basics.make(_elm),
+   $Debug = Elm.Debug.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
+   var _op = {};
+   var initialModel = {};
+   var Model = {};
+   return _elm.Models.values = {_op: _op,Model: Model,initialModel: initialModel};
+};
+Elm.Update = Elm.Update || {};
+Elm.Update.make = function (_elm) {
+   "use strict";
+   _elm.Update = _elm.Update || {};
+   if (_elm.Update.values) return _elm.Update.values;
+   var _U = Elm.Native.Utils.make(_elm),
+   $Actions = Elm.Actions.make(_elm),
+   $Basics = Elm.Basics.make(_elm),
+   $Debug = Elm.Debug.make(_elm),
+   $Effects = Elm.Effects.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Models = Elm.Models.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
+   var _op = {};
+   var update = F2(function (action,model) {    return {ctor: "_Tuple2",_0: model,_1: $Effects.none};});
+   return _elm.Update.values = {_op: _op,update: update};
+};
+Elm.View = Elm.View || {};
+Elm.View.make = function (_elm) {
+   "use strict";
+   _elm.View = _elm.View || {};
+   if (_elm.View.values) return _elm.View.values;
+   var _U = Elm.Native.Utils.make(_elm),
+   $Actions = Elm.Actions.make(_elm),
+   $Basics = Elm.Basics.make(_elm),
+   $Debug = Elm.Debug.make(_elm),
+   $Html = Elm.Html.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Models = Elm.Models.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
+   var _op = {};
+   var view = F2(function (address,model) {    return A2($Html.div,_U.list([]),_U.list([$Html.text("Hello")]));});
+   return _elm.View.values = {_op: _op,view: view};
+};
 Elm.Main = Elm.Main || {};
 Elm.Main.make = function (_elm) {
    "use strict";
    _elm.Main = _elm.Main || {};
    if (_elm.Main.values) return _elm.Main.values;
    var _U = Elm.Native.Utils.make(_elm),
+   $Actions = Elm.Actions.make(_elm),
    $Basics = Elm.Basics.make(_elm),
    $Debug = Elm.Debug.make(_elm),
    $Effects = Elm.Effects.make(_elm),
    $Html = Elm.Html.make(_elm),
    $List = Elm.List.make(_elm),
    $Maybe = Elm.Maybe.make(_elm),
+   $Models = Elm.Models.make(_elm),
    $Result = Elm.Result.make(_elm),
    $Signal = Elm.Signal.make(_elm),
    $StartApp = Elm.StartApp.make(_elm),
-   $Task = Elm.Task.make(_elm);
+   $Task = Elm.Task.make(_elm),
+   $Update = Elm.Update.make(_elm),
+   $View = Elm.View.make(_elm);
    var _op = {};
-   var view = F2(function (address,model) {    return A2($Html.div,_U.list([]),_U.list([$Html.text("Hello")]));});
-   var update = F2(function (action,model) {    return {ctor: "_Tuple2",_0: model,_1: $Effects.none};});
-   var initialModel = {};
-   var init = {ctor: "_Tuple2",_0: initialModel,_1: $Effects.none};
-   var app = $StartApp.start({init: init,inputs: _U.list([]),update: update,view: view});
+   var init = {ctor: "_Tuple2",_0: $Models.initialModel,_1: $Effects.none};
+   var app = $StartApp.start({init: init,inputs: _U.list([]),update: $Update.update,view: $View.view});
    var main = app.html;
    var runner = Elm.Native.Task.make(_elm).performSignal("runner",app.tasks);
-   var Model = {};
-   var NoOp = {ctor: "NoOp"};
-   return _elm.Main.values = {_op: _op,NoOp: NoOp,Model: Model,initialModel: initialModel,update: update,view: view,init: init,app: app,main: main};
+   return _elm.Main.values = {_op: _op,init: init,app: app,main: main};
 };
