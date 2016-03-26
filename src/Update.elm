@@ -5,6 +5,7 @@ import Effects exposing (Effects)
 
 import Models exposing (..)
 import Actions exposing (..)
+import Mailboxes exposing (..)
 
 
 import Players.Update
@@ -20,7 +21,8 @@ update action model =
       let
         updateModel =
           {
-            players = model.players
+            players = model.players,
+            showErrorAddress = Signal.forwardTo actionsMailbox.address ShowError
           }
 
         ( updatedPlayers, fx ) =
@@ -37,3 +39,6 @@ update action model =
 
     NoOp ->
       ( model, Effects.none )
+
+    ShowError message ->
+      ({ model | errorMessage = message }, Effects.none)

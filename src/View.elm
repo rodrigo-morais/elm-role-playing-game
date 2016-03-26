@@ -1,6 +1,10 @@
 module View (..) where
 
 import Html exposing (..)
+import Html.Attributes exposing (..)
+
+
+import String
 
 
 import Actions exposing (..)
@@ -19,7 +23,10 @@ view : Signal.Address Action -> AppModel -> Html
 view address model =
   div
     []
-    [ page address model ]
+    [
+      flash address model,
+      page address model
+    ]
 
 
 page : Signal.Address Action -> AppModel -> Html.Html
@@ -72,3 +79,12 @@ notFoundView : Html.Html
 notFoundView =
   div [ ]
       [ text "Not Found" ]
+
+
+flash : Signal.Address Action -> AppModel -> Html
+flash address model =
+  if String.isEmpty model.errorMessage then
+    span [ ] [ ]
+  else
+    div [ class "bold center p2 mb2 white bg-red rounded" ]
+        [ text model.errorMessage ]
