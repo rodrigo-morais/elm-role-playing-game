@@ -1,13 +1,16 @@
 module Models (..) where 
 
 
-type alias Model =
-  {
+import Players.Models exposing (Player)
 
+type alias AppModel =
+  {
+    players : List Player
   }
 
 
-initialModel : Model
+initialModel : AppModel
 initialModel =
   {
+    players = [ Player 1 "Sam" 1 ]
   }

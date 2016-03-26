@@ -12,12 +12,12 @@ import View exposing (view)
 
 
 -- START APP
-init : (Model, Effects Action)
+init : (AppModel, Effects Action)
 init =
   (initialModel, Effects.none)
 
 
-app : StartApp.App Model
+app : StartApp.App AppModel
 app =
   StartApp.start
   {
