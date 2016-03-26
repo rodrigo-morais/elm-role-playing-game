@@ -12,13 +12,20 @@ import Update exposing (..)
 import View exposing (view)
 
 
+import Players.Effects
+
+
 import Routing
 
 
 -- START APP
 init : (AppModel, Effects Action)
 init =
-  (initialModel, Effects.none)
+  let
+    fxs = [ Effects.map PlayersAction Players.Effects.fetchAll ]
+    fx = Effects.batch fxs
+  in
+    (Models.initialModel, fx)
 
 
 routerSignal : Signal Action

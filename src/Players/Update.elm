@@ -38,3 +38,11 @@ update action model =
 
     HopAction _ ->
       (model.players, Effects.none)
+
+    FetchAllDone result ->
+      case result of
+        Ok players ->
+          (players, Effects.none)
+
+        Err error ->
+          (model.players, Effects.none)
