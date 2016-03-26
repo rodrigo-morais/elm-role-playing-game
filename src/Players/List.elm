@@ -30,7 +30,13 @@ nav address model =
   div [ class "clearfix mb2 white bg-black" ]
       [
         div [ class "left p2" ]
-            [ text "Players" ]
+            [
+              text "Players"
+            ],
+        div [ class "right p1" ]
+            [
+              addBtn address model
+            ]
       ]
 
 
@@ -87,4 +93,13 @@ editBtn address player =
             i [ class "fa fa-pencil mr1" ]
               [ ],
             text "Edit"
+          ]
+
+
+addBtn : Signal.Address Action -> ViewModel -> Html.Html
+addBtn address model =
+  button  [ class "btn", onClick address CreatePlayer ]
+          [
+            i [ class "fa fa-user-plus mr1" ] [ ],
+            text "Add player"
           ]

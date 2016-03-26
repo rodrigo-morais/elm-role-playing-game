@@ -3,8 +3,12 @@ module Players.Update (..) where
 import Effects exposing (Effects)
 
 
+import Task
+
+
 import Players.Actions exposing (..)
 import Players.Models exposing (..)
+import Players.Effects exposing (..)
 
 
 import Hop.Navigate exposing (navigateTo)
@@ -59,3 +63,31 @@ update action model =
 
     TaskDone () ->
       (model.players, Effects.none)
+
+    CreatePlayer ->
+      (model.players, create new)
+
+    CreatePlayerDone result ->
+      case result of
+        Ok player ->
+          let
+            updatedCollection =
+              player :: model.players
+
+            fx =
+              Task.succeed (EditPlayer player.id)
+              |> Effects.task
+          in
+            (updatedCollection, fx)
+
+        Err error ->
+          let
+            message =
+              toString error
+
+            fx =
+              Signal.send model.showErrorAddress message
+              |> Effects.task
+              |> Effects.map TaskDone
+          in
+            (model.players, fx)
