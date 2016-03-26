@@ -22,7 +22,8 @@ update action model =
         updateModel =
           {
             players = model.players,
-            showErrorAddress = Signal.forwardTo actionsMailbox.address ShowError
+            showErrorAddress = Signal.forwardTo actionsMailbox.address ShowError,
+            deleteConfirmationAddress = askDeleteConfirmationMailbox.address
           }
 
         ( updatedPlayers, fx ) =

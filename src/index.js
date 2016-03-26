@@ -10,4 +10,16 @@ var Elm = require('./Main.elm');
 var mountNode = document.getElementById('main');
 
 // The third value on embed are the initial values for incomming ports into Elm
-var app = Elm.embed(Elm.Main, mountNode);
+var app = Elm.embed(Elm.Main, mountNode, {getDeleteConfirmation: 0});
+
+
+app.ports.askDeleteConfirmation.subscribe(function(args) {
+  console.log('askDeleteConfirmation', args);
+  var id = args[0],
+      message = args[1],
+      response = window.confirm(message);
+
+  if(response) {
+    app.ports.getDeleteConfirmation.send(id);
+  }
+})

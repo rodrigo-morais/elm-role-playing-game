@@ -14,6 +14,7 @@ import Mailboxes exposing (..)
 
 
 import Players.Effects
+import Players.Actions
 
 
 import Routing
@@ -34,12 +35,23 @@ routerSignal =
   Signal.map RoutingAction Routing.signal
 
 
+getDeleteConfirmationSignal : Signal Actions.Action
+getDeleteConfirmationSignal =
+  let
+    toAction id =
+        id
+        |> Players.Actions.DeletePlayer
+        |> PlayersAction
+  in
+    Signal.map toAction getDeleteConfirmation
+
+
 app : StartApp.App AppModel
 app =
   StartApp.start
   {
     init = init,
-    inputs = [ routerSignal, actionsMailbox.signal ],
+    inputs = [ routerSignal, actionsMailbox.signal, getDeleteConfirmationSignal ],
     update = update,
     view = view
   }
@@ -60,3 +72,11 @@ port runner =
 port routeRunTask : Task.Task () ()
 port routeRunTask =
   Routing.run
+
+
+port askDeleteConfirmation : Signal (Int, String)
+port askDeleteConfirmation =
+  askDeleteConfirmationMailbox.signal
+
+
+port getDeleteConfirmation : Signal Int
