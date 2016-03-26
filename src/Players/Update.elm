@@ -157,6 +157,29 @@ update action model =
       in
         (model.players, fx)
 
+    ChangeName playerId newName ->
+      let
+        fxForPlayer player =
+          if player.id /= playerId then
+            Effects.none
+          else
+            let
+              updatePlayer =
+                { player | name = newName }
+            in
+              if updatePlayer.level > 0 then
+                save updatePlayer
+              else
+                Effects.none
+
+        fx =
+          List.map fxForPlayer model.players
+            |> Effects.batch
+
+      in
+        (model.players, fx)
+
+
     SaveDone result ->
       case result of
         Ok player ->

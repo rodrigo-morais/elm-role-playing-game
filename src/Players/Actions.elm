@@ -24,3 +24,4 @@ type Action =
   | DeletePlayerDone PlayerId (Result Http.Error ())
   | ChangeLevel PlayerId Int
   | SaveDone (Result Http.Error Player)
+  | ChangeName PlayerId String

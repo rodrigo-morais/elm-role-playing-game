@@ -2,8 +2,8 @@
   "players": [
     {
       "id": 1,
-      "name": "Sally",
-      "level": 2
+      "name": "Sally New 2",
+      "level": 3
     },
     {
       "id": 3,
@@ -14,6 +14,11 @@
       "id": 4,
       "name": "Maria",
       "level": 4
+    },
+    {
+      "id": 5,
+      "name": "New guy",
+      "level": 5
     }
   ]
 }
